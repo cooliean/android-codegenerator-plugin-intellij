@@ -1,0 +1,145 @@
+<idea-plugin version="2" url="http://tmorcinek.github.io/android-codegenerator-plugin-intellij">
+    <id>com.morcinek.android.codegenerator.plugin.intellij</id>
+    <name>Android Code Generator</name>
+    <version>1.5</version>
+    <vendor email="tomasz.morcinek@gmail.com" url="http://morcinek.co.uk">Tomasz Morcinek</vendor>
+
+    <description><![CDATA[
+        <h1>1、修改版本，添加对RecyclerViewHolder的支持</h1>
+        <h1>2、修复了在部分显示器代码对话框过大不能复制代码的问题（修改成滚动显示）</h1>
+        <h2>Android Code Generator Plugin</h2>
+
+        <h2>Author</h2>
+        Author of this plugin is <b>Tomasz Morcinek</b>. <br/>
+        Public <b>github</b> profile: <a href="https://github.com/tmorcinek">https://github.com/tmorcinek</a>.
+
+        <h2>Repository</h2>
+        Project on github <a href="https://github.com/tmorcinek/android-codegenerator-plugin-intellij">android-codegenerator-plugin-intellij</a>
+
+        <h2>Description</h2>
+        Plugin parses xml file, and retrieves data about all the views that contain android:id attribute. <br/>
+        Plugin collects information about view's type and id. Based on that, plugin generates fields, assignment, imports and methods. <br/>
+        Full project description on <a href="http://tmorcinek.github.io/android-codegenerator-plugin-intellij">github's information page</a>.
+
+        <h2>Features</h2>
+
+        <p>There are several very useful features some of them are:</p>
+
+        <ul>
+            <li>generating Activity Class code from layout</li>
+            <li>generating Fragment Class code from layout</li>
+            <li>generating Adapter Class code from item layout</li>
+            <li>generating Menu code from menu xml</li>
+            <li>creating files from code</li>
+            <li>preview screen with generated code that can be modified before creation of file</li>
+            <li>detection of project package</li>
+        </ul>
+
+        <i>Compiled with Java 1.6</i>
+        <br/>
+        <br/>
+    ]]></description>
+
+    <change-notes><![CDATA[
+
+        <b>Version 1.4</b>
+        <ul>
+            <li>ISSUE #7: Android Studio throwing error when Android Designer editor is open.</li>
+            <li>ISSUE #8: Source path's on windows are too long.</li>
+            <li>ISSUE #9: Error when creating file on windows .</li>
+            <li>ISSUE #10: Adding github.io page link to Plugin description.</li>
+        </ul>
+
+        <b>Version 1.3</b>
+        <ul>
+            <li>Support for IntelliJ IDEA 14.</li>
+        </ul>
+
+        <b>Version 1.2</b>
+        <ul>
+            <li>ISSUE #2: Templates should be editable in PreferencesPages.</li>
+            <li>ISSUE #6: When plugin is about to override existing file content user should be informed.</li>
+            <li>ISSUE #5: Source path should be retrieved from project and there should be combo instead of text field.</li>
+        </ul>
+
+        <b>Version 1.1</b>
+        <ul>
+            <li>ISSUE #1: Editor should pops up when creating file.</li>
+            <li>ISSUE #3: Source path should be saved in persistence store.</li>
+            <li>ISSUE #4: Generate Code Menu Options should be available through editor.</li>
+        </ul>
+
+        <b>Version 1.0</b>
+        <ul>
+            <li>generating Activity Class code from layout</li>
+            <li>generating Fragment Class code from layout</li>
+            <li>generating Adapter Class code from item layout</li>
+            <li>generating Menu code from menu xml</li>
+            <li>creating files from code</li>
+            <li>preview screen with generated code that can be modified before creation of file</li>
+            <li>detection of project package</li>
+        </ul>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="131"/>
+
+    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService serviceInterface="com.morcinek.android.codegenerator.plugin.persistence.Settings"
+                        serviceImplementation="com.morcinek.android.codegenerator.plugin.persistence.Settings"/>
+        <applicationService
+                serviceInterface="com.morcinek.android.codegenerator.plugin.preferences.persistence.TemplateSettings"
+                serviceImplementation="com.morcinek.android.codegenerator.plugin.preferences.persistence.TemplateSettings"/>
+        <applicationConfigurable
+                instance="com.morcinek.android.codegenerator.plugin.preferences.configurables.MainConfigurable"/>
+    </extensions>
+
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
+
+    <project-components>
+        <!-- Add your project components here -->
+    </project-components>
+
+    <actions>
+        <group>
+            <separator/>
+            <group id="CodeGenerationPlugin.GenerateAndroidCodeGroup" text="Generate Android Code"
+                   class="com.morcinek.android.codegenerator.plugin.groups.GenerateAndroidCodeGroup" popup="true">
+                <action id="CodeGenerationPlugin.ActivityAction"
+                        class="com.morcinek.android.codegenerator.plugin.actions.ActivityAction"
+                        text="Activity" description="Generate Activity Code">
+                </action>
+                <action id="CodeGenerationPlugin.AdapterAction"
+                        class="com.morcinek.android.codegenerator.plugin.actions.AdapterAction"
+                        text="Adapter" description="Generate Adapter Code">
+                </action>
+                <action id="CodeGenerationPlugin.RecyclerViewAdapterAction"
+                        class="com.morcinek.android.codegenerator.plugin.actions.RecyclerViewAdapterAction"
+                        text="RecyclerViewAdapter" description="Generate Adapter Code">
+                </action>
+                <action id="CodeGenerationPlugin.FragmentAction"
+                        class="com.morcinek.android.codegenerator.plugin.actions.FragmentAction"
+                        text="Fragment" description="Generate Fragment Code">
+                </action>
+                <action id="CodeGenerationPlugin.MenuAction"
+                        class="com.morcinek.android.codegenerator.plugin.actions.MenuAction"
+                        text="Menu" description="Generate Menu Code">
+                </action>
+            </group>
+            <separator/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after"
+                          relative-to-action="XmlGenerateToolsGroup"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="after"
+                          relative-to-action="XmlGenerateToolsGroup"/>
+        </group>
+    </actions>
+</idea-plugin>

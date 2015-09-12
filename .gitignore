@@ -1,0 +1,10 @@
+.classpath
+.project
+.settings
+target
+production
+out
+
+# intelij files
+/.idea/workspace.xml
+/.idea/misc.xml

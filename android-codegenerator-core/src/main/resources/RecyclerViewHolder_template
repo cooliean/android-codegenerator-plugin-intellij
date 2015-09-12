@@ -1,0 +1,82 @@
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import java.util.List;
+${IMPORTS}
+
+public class ${CLASS_NAME}Adapter extends RecyclerView.Adapter<${CLASS_NAME}Adapter.ViewHolder> {
+    //private RecycleItemClickListener itemClickListener;
+    private List<T> objects = new ArrayList<T>();
+    private Context mContext;
+    private LayoutInflater layoutInflater;
+
+    public ${CLASS_NAME}Adapter(Context context,List<T> items){
+        this.objects = items;
+        this.mContext = context;
+        this.layoutInflater = LayoutInflater.from(context);
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.objects.size();
+    }
+    @Override
+    public void onBindViewHolder(${CLASS_NAME}Adapter.ViewHolder holder, int position) {
+        T item = this.objects.get(position);
+        //TODO
+    }
+
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
+        final View sView = mInflater.inflate(R.layout.${RESOURCE_NAME}, parent,false);
+        //return new ${CLASS_NAME}Adapter.ViewHolder(sView,itemClickListener);
+        return new ${CLASS_NAME}Adapter.ViewHolder(sView);
+    }
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        //private RecycleItemClickListener mItemClickListener;
+        ${FIELDS}
+
+
+        public ViewHolder(View view){
+            super(view);
+            ${ASSIGNMENTS}
+            //view.setOnClickListener(this);
+        }
+
+
+        /*
+        public ViewHolder(View view,RecycleItemClickListener itemClickListener){
+            super(view);
+            ${ASSIGNMENTS}
+            mItemClickListener = itemClickListener;
+            view.setOnClickListener(this);
+        }
+        */
+
+        @Override
+        public void onClick(View v) {
+            /*
+            if(mItemClickListener != null){
+                mItemClickListener.onItemClick(v,getPosition());
+            }
+            */
+        }
+    }
+
+    /*
+    public void setOnItemClickListener(RecycleItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
+    */
+    /*
+    //要用这个类，请复制在外面新建一个，就可以通用了
+    public interface RecycleItemClickListener {
+    	public void onItemClick(View view, int position);
+    }
+    */
+}
