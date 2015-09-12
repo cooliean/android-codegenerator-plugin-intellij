@@ -5,6 +5,4 @@ Intellij IDEA 代码生成插件（修改自：https://github.com/tmorcinek/andr
 
 2、修复了在部分显示器代码对话框过大不能复制代码的问题（修改成滚动显示）
 
-
-
 喜欢的拿去用吧，：）
